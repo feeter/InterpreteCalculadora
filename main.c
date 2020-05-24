@@ -7,18 +7,19 @@
 #define key "Ingrese la operacion que quiere hacer: "
 
 
-
-int *obtenerNumeros(char ingreso[]);
+void obtenerOperacion(char ingreso[]);
+void obtenerNumeros(char ingreso[]);
 void suma();
 void resta();
 void multiplicar();
 void dividir();
 
 int numeros[2];
+char operacion;
 
 int main() {
     int x = 1;
-    char ingreso[100];
+    char *ingreso;
 
     while(x)
     {
@@ -28,22 +29,54 @@ int main() {
         printf("%s", key);
         scanf("%s", ingreso);
 
-        printf("el usuario ingreso: %s \n", ingreso);
+        obtenerOperacion(ingreso);
+
+        //printf("el usuario ingreso: %s \n", ingreso);
 
         obtenerNumeros(ingreso);
 
-        switch('+')
+        switch(operacion)
         {
             case '+': suma();
                 break;
         }
+
+        operacion = ' ';
     }
 
 
     return 0;
 }
 
-int *obtenerNumeros(char ingreso[])
+void obtenerOperacion(char ingreso[])
+{
+    char *esSuma = strchr(ingreso, '+');
+    char *esResta = strchr(ingreso, '-');
+    char *esMultiplicacion = strchr(ingreso, '*');
+    char *esDivision = strchr(ingreso, '/');
+
+    if (esSuma != NULL)
+    {
+        operacion = '+';
+    }
+
+    if (esResta != NULL)
+    {
+        operacion = '-';
+    }
+
+    if (esMultiplicacion != NULL)
+    {
+        operacion = '*';
+    }
+
+    if (esDivision != NULL)
+    {
+        operacion = '/';
+    }
+}
+
+void obtenerNumeros(char ingreso[])
 {
     int i = 0;
 
@@ -51,7 +84,7 @@ int *obtenerNumeros(char ingreso[])
 
     if (p == NULL) {
         printf("No hay valores, o cadena incorrecta");
-        return -1;
+        exit(-1);
     }
     numeros[i++] = atoi(p);
 
@@ -66,7 +99,6 @@ int *obtenerNumeros(char ingreso[])
     //printf("valor 1: %d ", numeros[0]);
     //printf("valor 2: %d \n", numeros[1]);
 
-    return numeros;
 }
 
 void suma()
