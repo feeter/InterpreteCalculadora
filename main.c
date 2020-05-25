@@ -39,6 +39,15 @@ int main() {
         {
             case '+': suma();
                 break;
+            case '-': resta();
+                break;
+            case '*': multiplicar();
+                break;
+            case '/': dividir();
+                break;
+            default:
+                printf("Operacion no controlada \n");
+                break;
         }
 
         operacion = ' ';
@@ -80,7 +89,7 @@ void obtenerNumeros(char ingreso[])
 {
     int i = 0;
 
-    char *p  = strtok(ingreso, "+");
+    char *p  = strtok(ingreso, &operacion);
 
     if (p == NULL) {
         printf("No hay valores, o cadena incorrecta");
@@ -90,7 +99,7 @@ void obtenerNumeros(char ingreso[])
 
     while (p != NULL)
     {
-        p = strtok(NULL, "+");
+        p = strtok(NULL, &operacion);
         if (p != NULL) {
             numeros[i++] = atoi(p);
         }
@@ -113,3 +122,38 @@ void suma()
     printf("suma total= %d\n", sum);
 }
 
+void resta()
+{
+    int resta = 0;
+
+    resta = numeros[0] - numeros[1];
+
+
+    printf("resta total= %d\n", resta);
+
+}
+
+void dividir()
+{
+    float division = 0;
+    float denominador = (float) numeros[1];
+
+    if (denominador == 0){
+        printf("denominador no puede ser 0 \n");
+        return;
+    }
+
+    division = (float) numeros[0] / denominador;
+
+    printf("division total= %f\n", division);
+
+}
+
+void multiplicar()
+{
+    int result = 0;
+
+    result = numeros[0] * numeros[1];
+
+    printf("multiplicacion total= %d\n", result);
+}
